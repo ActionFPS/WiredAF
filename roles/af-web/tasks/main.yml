@@ -2,6 +2,22 @@
   user:
     name: af
 
+
+- name: checkout repo
+  git: repo=https://github.com/ScalaWilliam/ActionFPS.git version=master dest=/home/af/repo
+  become: yes
+  become_user: af
+  register: git_checkout
+
+- name: compile artifacts
+  become: yes
+  become_user: af
+  shell: sbt 'show web/stage'
+  register: new_artifact
+  args:
+    chdir: /home/af/repo
+  when: git_checkout.changed
+
 - name: copy systemd service template configuration
   template: >
     src=af-web.service.j2
@@ -20,7 +36,12 @@
     name: af-web
     state: restarted
     enabled: yes
-  when: af_web_unit.changed
+  when: af_web_unit.changed or (new_artifact is defined)
+
+- name: ensure service is started
+  systemd:
+    name: af-web
+    state: started
 
 - name: copy nginx service configuration
   template: >
@@ -34,3 +55,9 @@
     name: nginx
     state: reloaded
   when: af_web_nginx.changed
+
+# - action: uri url=http://localhost:9000/version/ return_content=yes
+#   register: webpage
+
+# - fail: msg='service is not running'
+#   when: "'description' not in webpage.content"

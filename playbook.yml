@@ -1,5 +1,12 @@
 ---
-- hosts: odin
+- hosts: all
+  become: yes
   roles:
-     - af-syslog
-     - af-web
+    - { role: geerlingguy.nginx }
+    - af-syslog
+    - role: geerlingguy.java
+      java_packages:
+        - java-1.8.0-openjdk
+    - sbt
+    - { role: geerlingguy.git }
+    - af-web
