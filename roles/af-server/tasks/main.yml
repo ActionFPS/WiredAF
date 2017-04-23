@@ -25,10 +25,13 @@
     - libssl-dev
   register: build_deps
 
+- stat: path=/home/af_server/game/config/users
+  register: users
+
 - name: ensure users and group file exists
+  when: users.stat.exists == False
   file:
     path: "/home/af_server/game/config/{{ item }}"
-    # temporary solution
     state: touch
     mode: 0755
   with_items:
@@ -44,22 +47,22 @@
     chdir: /home/af_server/game/source/src/
   register: new_artifact
 
-- name: copy systemd service template configuration
+- name: "copy systemd service template configuration for {{ app_port }}"
   template: >
     src=af-server.service.j2
-    dest=/etc/systemd/system/af-server.service
+    dest=/etc/systemd/system/af-server_{{ app_port }}.service
     mode=0755
   register: af_server_unit
 
 - name: reload systemd daemon
   systemd:
-    name: af-server
+    name: "af-server_{{ app_port }}"
     daemon_reload: yes
   when: af_server_unit.changed
 
 - name: restart and enable the service
   systemd:
-    name: af-server
+    name: "af-server_{{ app_port }}"
     state: restarted
     enabled: yes
   when: af_server_unit.changed or (new_artifact is defined and new_artifact.changed)
