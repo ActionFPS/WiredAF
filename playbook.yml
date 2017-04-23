@@ -2,4 +2,4 @@
 - hosts: odin
   roles:
      - af-syslog
-
+     - af-web
