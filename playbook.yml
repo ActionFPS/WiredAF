@@ -6,7 +6,7 @@
     - af-syslog
     - role: geerlingguy.java
       java_packages:
-        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
     - sbt
     - { role: geerlingguy.git }
     - af-web

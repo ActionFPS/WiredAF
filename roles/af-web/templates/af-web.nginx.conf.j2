@@ -43,6 +43,10 @@ add_header Cache-Control no-cache;
 
 
 server {
+{% if True %}
+listen 81;
+server_name localhost;
+{% else %}
 listen 443 ssl http2;
 listen [::]:443 ssl http2;
 server_name actionfps.com;
@@ -54,6 +58,7 @@ ssl_session_cache shared:SSL:10m;
 add_header Strict-Transport-Security max-age=63072000;
 add_header X-Frame-Options DENY;
 add_header X-Content-Type-Options nosniff;
+{% endif %}
 gzip on;
 gzip_types text/plain text/csv text/tab-separated-values application/json;
 location / {

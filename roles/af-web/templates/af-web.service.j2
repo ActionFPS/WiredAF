@@ -3,8 +3,8 @@ Description=ActionFPS 5 WEB
 [Service]
 User=af
 Type=simple
-WorkingDirectory=/home/af/web-5.0/
-ExecStart=/home/af/run.sh
+WorkingDirectory=/home/af/
+ExecStart=/home/af/repo/web/target/universal/stage/bin/web -Dhttp.port=59993 -Dplay.crypto.secret=test
 PIDFile=/home/af/web-5.0/RUNNING_PID
 Restart=on-abort
 [Install]

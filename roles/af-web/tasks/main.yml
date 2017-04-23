@@ -31,12 +31,20 @@
     daemon_reload: yes
   when: af_web_unit.changed
 
+- name: Make sure we can use libsemanage-python module
+  yum: "pkg=libsemanage-python state=installed"
+
+- seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
 - name: restart and enable the service
   systemd:
     name: af-web
     state: restarted
     enabled: yes
-  when: af_web_unit.changed or (new_artifact is defined)
+  when: af_web_unit.changed or (new_artifact is defined and new_artifact.changed)
 
 - name: ensure service is started
   systemd:
@@ -55,6 +63,11 @@
     name: nginx
     state: reloaded
   when: af_web_nginx.changed
+
+- firewalld:
+    port: 81/tcp
+    permanent: true
+    state: enabled
 
 # - action: uri url=http://localhost:9000/version/ return_content=yes
 #   register: webpage
