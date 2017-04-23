@@ -1,0 +1,10 @@
+[Unit]
+Description=ActionFPS 5 syslog
+[Service]
+User=af
+Type=simple
+WorkingDirectory=/home/af/
+ExecStart=/bin/bash -c '/usr/bin/syslog-ac udp://0.0.0.0:5000/ >> /home/af/journal.2017-01-13.5000.log'
+Restart=on-abort
+[Install]
+WantedBy=default.target

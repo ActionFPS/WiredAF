@@ -1,0 +1,23 @@
+- name: Set up af user
+  user:
+    name: af
+
+- name: copy systemd service template configuration
+  template: >
+    src=af-syslog.service.j2
+    dest=/etc/systemd/system/af-syslog-2.service
+    mode=0755
+  register: af_syslog_unit
+
+- name: reload systemd
+  systemd:
+    name: af-syslog-2
+    daemon_reload: yes
+  when: af_syslog_unit.changed
+
+- name: restart and enable the service
+  systemd:
+    name: af-syslog-2
+    state: restarted
+    enabled: yes
+  when: af_syslog_unit.changed
