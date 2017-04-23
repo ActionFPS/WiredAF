@@ -1,0 +1,15 @@
+- name: ensure log timing exists
+  copy:
+    src: files/ac_log_timing.pl
+    dest: /home/af/ac_log_timing.pl
+    owner: af
+    group: af
+    mode: 0755
+
+- name: ensure reader exists
+  copy:
+    src: files/read-aura-30000.sh
+    dest: /home/af/read-aura-30000.sh
+    owner: af
+    group: af
+    mode: 0755
