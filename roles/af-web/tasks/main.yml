@@ -9,7 +9,7 @@
     mode=0755
   register: af_web_unit
 
-- name: reload systemd
+- name: reload systemd daemon
   systemd:
     name: af-web
     daemon_reload: yes
@@ -21,3 +21,16 @@
     state: restarted
     enabled: yes
   when: af_web_unit.changed
+
+- name: copy nginx service configuration
+  template: >
+    src=af-web.nginx.conf.j2
+    dest=/etc/nginx/conf.d/af.conf
+    mode=0755
+  register: af_web_nginx
+
+- name: reload nginx
+  systemd:
+    name: nginx
+    state: reloaded
+  when: af_web_nginx.changed
