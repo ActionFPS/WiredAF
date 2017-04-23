@@ -1,10 +1,10 @@
 [Unit]
-Description=ActionFPS Demo Server
+Description=ActionFPS Server @ {{ app_port }}
 [Service]
 User=af_server
 Type=simple
 WorkingDirectory=/home/af_server/game/
-ExecStart=/home/af_server/game/source/src/ac_server -f{{ app_port }} --disableauthentication -mlocalhost
+ExecStart=/home/af_server/game/source/src/ac_server -f{{ app_port }} -c16 -LS0 -LF0 -Wdemos/ -T -mlocalhost
 Restart=on-abort
 [Install]
 WantedBy=default.target

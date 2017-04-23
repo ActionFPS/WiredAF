@@ -14,5 +14,11 @@
   become: yes
   roles:
     # - { role: geerlingguy.git }
-    - { role: af-server, app_port: 20000 }
+    - { role: af-server, app_port: 7654 }
     - { role: af-server, app_port: 30000 }
+    - { role: af-server-deploy }
+
+- hosts: odin
+  become: yes
+  roles:
+    - { role: af-user-sync }

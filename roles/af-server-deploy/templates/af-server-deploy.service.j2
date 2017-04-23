@@ -1,0 +1,10 @@
+[Unit]
+Description=ActionFPS Server Auto Deploy
+[Service]
+User=af_server
+Type=simple
+WorkingDirectory=/home/af_server/game/
+ExecStart=/usr/local/bin/git-watch -- /home/af_server/deploy.sh
+Restart=on-abort
+[Install]
+WantedBy=default.target

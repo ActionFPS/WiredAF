@@ -1,0 +1,5 @@
+#!/bin/bash
+git fetch
+if [[ $(git diff --name-only HEAD origin/master) != "" ]]; then
+    git pull && make server && sudo systemctl restart af-server_7654 && sudo systemctl restart af-server_30000;
+fi

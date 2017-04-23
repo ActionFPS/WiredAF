@@ -30,6 +30,8 @@
 
 - name: ensure users and group file exists
   when: users.stat.exists == False
+  become: yes
+  become_user: af_server
   file:
     path: "/home/af_server/game/config/{{ item }}"
     state: touch

@@ -1,0 +1,29 @@
+
+- name: checkout repo
+  git:
+    repo: https://github.com/ActionFPS/Incubator.git
+    version: master
+    dest: /home/af/Incubator
+  become: yes
+  become_user: af
+  register: git_checkout
+
+- name: copy systemd service template configuration
+  template: >
+    src=af-user-sync.service.j2
+    dest=/etc/systemd/system/af-user-sync.service
+    mode=0755
+  register: af_user_sync_service
+
+- name: reload systemd
+  systemd:
+    name: af-user-sync
+    daemon_reload: yes
+  when: af_user_sync_service.changed
+
+- name: restart and enable the service
+  systemd:
+    name: af-user-sync
+    state: restarted
+    enabled: yes
+  when: af_user_sync_service.changed or (git_checkout is defined and git_checkout.changed)

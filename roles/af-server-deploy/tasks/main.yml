@@ -1,0 +1,39 @@
+- name: Install "gitwatch-client" npm package
+  npm:
+    name: gitwatch-client
+    version: 2.1.0
+    global: yes
+
+- name: copy af-server deploy sudoers.d
+  become_user: af_server
+  become: yes
+  template: >
+    src=deploy.sh.j2
+    dest=/home/af_server/deploy.sh
+    mode=0755
+
+- name: copy af-server deploy sudoers.d
+  template: >
+    src=sudoers.j2
+    dest=/etc/sudoers.d/af_server
+    mode=0755
+
+- name: copy service configuration
+  template: >
+    src=af-server-deploy.service.j2
+    dest=/etc/systemd/system/af-server-deploy.service
+    mode=0755
+  register: gwts
+
+- name: reload systemd
+  systemd:
+    name: af-server-deploy
+    daemon_reload: yes
+  when: gwts.changed
+
+- name: restart and enable the service
+  systemd:
+    name: af-server-deploy
+    state: restarted
+    enabled: yes
+  when: gwts.changed
