@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: none
   become: yes
   roles:
     - { role: geerlingguy.nginx }
@@ -10,3 +10,8 @@
     - sbt
     - { role: geerlingguy.git }
     - af-web
+- hosts: woop.ac
+  become: yes
+  roles:
+    # - { role: geerlingguy.git }
+    - af-server

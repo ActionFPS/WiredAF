@@ -1,0 +1,66 @@
+- name: Set up af user
+  user:
+    name: af_server
+
+
+- name: checkout repo
+  git:
+    repo: https://github.com/ActionFPS/ActionFPS-Game.git
+    version: master
+    dest: /home/af_server/game
+  become: yes
+  become_user: af_server
+  register: git_checkout
+
+- name: Install build dependencies
+  apt:
+    state: installed
+    name: "{{ item }}"
+  with_items:
+    - clang
+    - make
+    - automake
+    - libcurl4-openssl-dev
+    - openssl
+    - libssl-dev
+  register: build_deps
+
+- name: ensure users and group file exists
+  file:
+    path: "/home/af_server/game/config/{{ item }}"
+    # temporary solution
+    state: touch
+    mode: 0755
+  with_items:
+    - users
+    - groups
+
+- name: compile the server
+  when: build_deps.changed or git_checkout.changed
+  become: yes
+  become_user: af_server
+  shell: make server
+  args:
+    chdir: /home/af_server/game/source/src/
+  register: new_artifact
+
+- name: copy systemd service template configuration
+  template: >
+    src=af-server.service.j2
+    dest=/etc/systemd/system/af-server.service
+    mode=0755
+  register: af_server_unit
+
+- name: reload systemd daemon
+  systemd:
+    name: af-server
+    daemon_reload: yes
+  when: af_server_unit.changed
+
+- name: restart and enable the service
+  systemd:
+    name: af-server
+    state: restarted
+    enabled: yes
+  when: af_server_unit.changed or (new_artifact is defined and new_artifact.changed)
+

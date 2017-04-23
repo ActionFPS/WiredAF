@@ -1,0 +1,10 @@
+[Unit]
+Description=ActionFPS Demo Server
+[Service]
+User=af_server
+Type=simple
+WorkingDirectory=/home/af_server/game/
+ExecStart=/home/af_server/game/source/src/ac_server
+Restart=on-abort
+[Install]
+WantedBy=default.target
