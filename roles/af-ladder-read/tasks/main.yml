@@ -13,3 +13,20 @@
     owner: af
     group: af
     mode: 0755
+
+
+- name: ensure transforker exists
+  copy:
+    src: files/transform-journal-to-ladder.awk
+    dest: /home/af/transform-journal-to-ladder.awk
+    owner: af
+    group: af
+    mode: 0755
+
+- name: ensure new califa reader exists
+  copy:
+    src: files/read-califa-new.sh
+    dest: /home/af/read-califa-new.sh
+    owner: af
+    group: af
+    mode: 0755
