@@ -18,6 +18,12 @@
     - { role: af-server, app_port: 30000 }
     - { role: af-server-deploy }
 
+- hosts: califa
+  become: yes
+  roles:
+    - { role: af-server, app_port: 30000 }
+    - { role: af-server-deploy }
+
 - hosts: odin
   become: yes
   roles:

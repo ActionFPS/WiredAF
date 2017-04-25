@@ -13,6 +13,7 @@
     - read-aura-30000.sh
     - read-califa-new.sh
     - transform-journal-to-ladder.awk
+    - read-califa-new-30000.sh
 
 - name: ensuer web config is there
   copy:
