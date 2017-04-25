@@ -1,3 +1,11 @@
+- name: Install build dependencies (RedHat).
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - npm
+  when: (ansible_os_family == 'RedHat')
+
 - name: Install "gitwatch-client" npm package
   npm:
     name: gitwatch-client

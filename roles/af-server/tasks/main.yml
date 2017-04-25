@@ -2,6 +2,13 @@
   user:
     name: af_server
 
+- name: Set up multiple authorized keys
+  authorized_key:
+    user: af_server
+    state: present
+    key: '{{ item }}'
+  with_file:
+    - users_deploy
 
 - name: checkout repo
   git:
@@ -24,6 +31,18 @@
     - openssl
     - libssl-dev
   register: build_deps
+  when: ansible_os_family == 'Debian'
+
+- name: Install build dependencies (RedHat).
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - openssl-devel
+    - automake
+    - clang
+    - "@Development tools"
+  when: (ansible_os_family == 'RedHat')
 
 - stat: path=/home/af_server/game/config/users
   register: users

@@ -6,6 +6,8 @@ To `odin` (`actionfps.com`), it deploys:
 * `af-web`
 
 ```
+$ ansible-galaxy install geerlingguy.repo-epel
+$ ansible-galaxy install geerlingguy.nodejs
 $ ansible-galaxy install geerlingguy.java
 $ ansible-galaxy install geerlingguy.git
 $ ansible-galaxy install geerlingguy.nginx
