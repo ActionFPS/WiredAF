@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 function transform(input, server_string) {
 	if ( index(input, server_string) == 41 ) {
-		return substr(input, 7, 19) " " substr(input, 97)
+		return substr(input, 7, 19) " " substr(input, length(server_string) + 52)
 	}
 }
 
