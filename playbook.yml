@@ -14,9 +14,10 @@
   become: yes
   roles:
     # - { role: geerlingguy.git }
-    - { role: af-server, app_port: 7654 }
-    - { role: af-server, app_port: 30000 }
-    - { role: af-server-deploy }
+    # - { role: af-server, app_port: 7654 }
+    # - { role: af-server, app_port: 30000 }
+    # - { role: af-server-deploy }
+    - { role: ac-sync-blacklist }
 
 - hosts: califa
   become: yes

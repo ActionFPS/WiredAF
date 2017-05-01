@@ -1,0 +1,10 @@
+[Unit]
+Description=AssaultCube blacklist sync
+[Service]
+User=assaultcube
+Type=simple
+WorkingDirectory=/home/assaultcube/blacklist
+ExecStart=/usr/local/bin/git-watch -- 'git pull && cp serverblacklist.cfg nicknameblacklist.cfg ../config/'
+Restart=on-abort
+[Install]
+WantedBy=default.target

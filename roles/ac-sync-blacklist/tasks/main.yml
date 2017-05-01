@@ -1,0 +1,25 @@
+- name: Install "gitwatch-client" npm package
+  npm:
+    name: gitwatch-client
+    version: 2.1.0
+    global: yes
+
+- name: copy service configuration
+  template: >
+    src=ac-sync-blacklist.service.j2
+    dest=/etc/systemd/system/ac-sync-blacklist.service
+    mode=0755
+  register: acsb
+
+- name: reload systemd
+  systemd:
+    name: ac-sync-blacklist
+    daemon_reload: yes
+  when: acsb.changed
+
+- name: restart and enable the service
+  systemd:
+    name: ac-sync-blacklist
+    state: restarted
+    enabled: yes
+  when: acsb.changed
