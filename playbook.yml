@@ -22,9 +22,14 @@
 - hosts: califa
   become: yes
   roles:
+    # - { role: geerlingguy.repo-epel } <- weird. screws up node install
+    # - geerlingguy.nodejs
     # - { role: geerlingguy.git }
-    - { role: af-server, app_port: 7654 }
-    - { role: af-server, app_port: 30000 }
+    # - { role: af-server, app_port: 7654 }
+    # - { role: af-server, app_port: 30000 }
+    - role: ac-sync-blacklist
+      blacklist_user: califac
+      blacklist_target: /home/califac/assaultcube/config
  #   - geerlingguy.nodejs
  #   - { role: af-server-deploy }
 

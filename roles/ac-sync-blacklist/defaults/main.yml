@@ -1,0 +1,3 @@
+---
+blacklist_user: assaultcube
+blacklist_target: /home/assaultcube/config/
