@@ -27,9 +27,20 @@
     # - { role: geerlingguy.git }
     # - { role: af-server, app_port: 7654 }
     # - { role: af-server, app_port: 30000 }
-    - role: ac-sync-blacklist
-      blacklist_user: califac
-      blacklist_target: /home/califac/assaultcube/config
+    # - role: ac-sync-blacklist
+    #   blacklist_user: califac
+    #   blacklist_target: /home/califac/assaultcube/config
+    - role: geerlingguy.nginx
+      nginx_vhosts:
+        - listen: "80"
+          server_name: "califa.actionfps.com"
+          state: "present"
+          extra_parameters: |
+            location /demos/ {
+              autoindex on;
+              alias /home/califac/assaultcube/demos/;
+            }
+
  #   - geerlingguy.nodejs
  #   - { role: af-server-deploy }
 
