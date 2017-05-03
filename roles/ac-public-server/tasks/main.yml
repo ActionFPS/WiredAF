@@ -1,0 +1,29 @@
+- name: "copy systemd service template configuration for {{ app_port }}"
+  template: >
+    src=ac-server.service.j2
+    dest=/etc/systemd/system/ac-server_{{ app_port }}.service
+    mode=0755
+  register: ac_server_unit
+
+- name: "copy cmdline for {{ app_port }}"
+  become: yes
+  become_user: assaultcube
+  template: >
+    src=servercmdline.txt.j2
+    dest=/home/assaultcube/config/servercmdline{{ app_port }}.txt
+    mode=0755
+  register: ac_server_config
+
+- name: reload systemd daemon
+  systemd:
+    name: "ac-server_{{ app_port }}"
+    daemon_reload: yes
+  when: ac_server_unit.changed
+
+- name: restart and enable the service
+  systemd:
+    name: "ac-server_{{ app_port }}"
+    state: restarted
+    enabled: yes
+  when: ac_server_unit.changed or ac_server_config.changed
+

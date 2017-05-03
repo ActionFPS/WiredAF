@@ -1,0 +1,10 @@
+[Unit]
+Description=AssaultCube Server @ {{ app_port }}
+[Service]
+User=assaultcube
+Type=simple
+WorkingDirectory=/home/assaultcube/
+ExecStart=/home/assaultcube/bin_unix/ac_server_old -C/home/assaultcube/config/servercmdline{{ app_port }}.txt
+Restart=on-abort
+[Install]
+WantedBy=default.target

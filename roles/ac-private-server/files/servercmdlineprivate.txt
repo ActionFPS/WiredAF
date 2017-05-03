@@ -1,0 +1,10 @@
+ -c 20
+ -P fkbmasRcDEwx
+ -k -15
+ -kA 20
+ -kB 20
+ -y -30
+ -M CURD
+ -LF2
+ -LS2
+ -T
