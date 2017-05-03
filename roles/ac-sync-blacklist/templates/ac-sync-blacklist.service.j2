@@ -4,7 +4,7 @@ Description=AssaultCube blacklist sync
 User={{ blacklist_user }}
 Type=simple
 WorkingDirectory=/home/{{ blacklist_user }}/blacklist
-ExecStart=/bin/bash -c 'git-watch -i -- "git pull && cp serverblacklist.cfg nicknameblacklist.cfg {{ blacklist_target }}"'
+ExecStart=/bin/bash -c 'git-watch -i -- "git pull && /usr/local/bin/sync-blacklist.sh {{ blacklist_target }}"'
 Restart=on-abort
 [Install]
 WantedBy=default.target

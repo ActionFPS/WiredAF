@@ -13,6 +13,13 @@
     version: 2.1.0
     global: yes
 
+- name: Ensure sync script is there
+  copy:
+    src: files/sync-blacklist.sh
+    dest: /usr/local/bin/sync-blacklist.sh
+    mode: 0777
+  register: script
+
 - name: copy service configuration
   template: >
     src=ac-sync-blacklist.service.j2
@@ -31,4 +38,4 @@
     name: ac-sync-blacklist
     state: restarted
     enabled: yes
-  when: acsb.changed
+  when: acsb.changed or script.changed
