@@ -7,4 +7,3 @@
  -M CURD
  -LF2
  -LS2
- -T
