@@ -19,11 +19,11 @@
     # - { role: af-server-deploy }
     # - { role: ac-sync-blacklist }
     - { role: ac-private-server, app_port: 1999 }
-    # - { role: ac-private-server, app_port: 2999 }
-    # - { role: ac-private-server, app_port: 3999 }
-    # - { role: ac-private-server, app_port: 4999 }
+    - { role: ac-private-server, app_port: 2999 }
+    - { role: ac-private-server, app_port: 3999 }
+    - { role: ac-private-server, app_port: 4999 }
     # - { role: ac-public-server, app_port: 10000 }
-    # - { role: ac-public-server, app_port: 28763 }
+    - { role: ac-public-server, app_port: 28763 }
 
 - hosts: califa
   become: yes

@@ -6,6 +6,5 @@ Type=simple
 WorkingDirectory=/home/assaultcube/
 ExecStart=/home/assaultcube/bin_unix/ac_server_stream -C/home/assaultcube/config/servercmdline{{ app_port }}.txt -C/home/assaultcube/config/servercmdlineprivate.txt
 Restart=on-abort
-SyslogIdentifier=aura_{{ app_port }}
 [Install]
 WantedBy=default.target

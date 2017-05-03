@@ -7,3 +7,5 @@
  -M CURD
  -LF2
  -LS2
+ -Wdemos/
+ -T
