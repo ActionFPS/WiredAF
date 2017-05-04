@@ -5,7 +5,7 @@ User=af
 Type=simple
 WorkingDirectory=/home/af/user-keys
 ExecStart=/home/af/Incubator/watch.sh
-EnvironmentFile=/etc/af-user-sync
+Environment=ADMIN_URL=https://raw.githubusercontent.com/ActionFPS/clans/master/administrators.csv
 Restart=on-abort
 [Install]
 WantedBy=default.target
