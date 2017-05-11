@@ -4,7 +4,7 @@ Description=ActionFPS 5 syslog
 User=af
 Type=simple
 WorkingDirectory=/home/af/
-ExecStart=/bin/bash -c '/usr/bin/syslog-ac udp://0.0.0.0:5000/ >> /home/af/journal.2017-01-13.5000.log'
+ExecStart=/bin/bash -c '/usr/bin/syslog-ac udp://0.0.0.0:5000/ >> /home/af/journal.2017-01-13.5000.tsv'
 Restart=on-abort
 [Install]
 WantedBy=default.target

@@ -53,5 +53,6 @@
 - hosts: odin
   become: yes
   roles:
-    - { role: af-user-sync }
+    - af-syslog
+    #- { role: af-user-sync }
     # - { role: af-ladder-read }
