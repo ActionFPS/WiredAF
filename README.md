@@ -32,3 +32,6 @@ Then go to http://localhost:8111/
 I tried to do with Docker but it doesn't want to use my OS Docker.
 
 If you change any settings you can type `vagrant reload`, it'll fix it up for you.
+
+
+Ansible 2.3 recommended (check with `ansible --version`)
